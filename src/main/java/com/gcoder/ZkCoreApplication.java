@@ -1,5 +1,6 @@
 package com.gcoder;
 
+import com.gcoder.protobuf.GsInfo;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
@@ -23,9 +24,22 @@ public class ZkCoreApplication {
 
 
 		CuratorService curatorService = ctx.getBean(CuratorService.class);
-		curatorService.registerServer("gameServer");
 
-		SystemUtils.createSysInfoFile(null);
+		GsInfo.Builder gsInfo = GsInfo.newBuilder()
+				.setEnable(false)
+				.setHostAddress(SystemUtils.getLocalHost())
+				.setNumLimit(100)
+				.setNumOnline(0)
+				.setOperator(SystemUtils.getSysUser())
+				.setPid(SystemUtils.getPid())
+				.setStartTime(System.currentTimeMillis());
+
+        String path = curatorService.registerServer("gameServer", gsInfo.build().toByteArray());
+
+        byte[] nodeData = curatorService.getNodeData(path);
+        System.out.println(GsInfo.parseFrom(nodeData).toString());
+
+        SystemUtils.createSysInfoFile(null);
 
 		Thread.sleep(Integer.MAX_VALUE);
 	}

@@ -16,16 +16,24 @@ public final class CuratorService {
     @Resource
     private CuratorFramework curator;
 
-    public void registerServer(String group) throws Exception {
-        String path = curator.create().creatingParentsIfNeeded()
+    public String registerServer(String group, byte[] data) throws Exception {
+        return curator.create().creatingParentsIfNeeded()
                 .withMode(CreateMode.EPHEMERAL_SEQUENTIAL)
-                .forPath(ZkConst.PATH_SEPARATOR.concat(group).concat(ZkConst.PATH_SEPARATOR).concat(group));
-//        curator.setData().forPath(path).write();
-        System.out.println("path : ".concat(path));
+                .forPath(ZkConst.PATH_SEPARATOR.concat(group).concat(ZkConst.PATH_SEPARATOR).concat(group)
+                , data);
     }
 
     public void unregisterServer(String group) throws Exception {
+        curator.delete().deletingChildrenIfNeeded()
+                .forPath(ZkConst.PATH_SEPARATOR.concat(group).concat(ZkConst.PATH_SEPARATOR).concat(group));
+    }
 
+    public byte[] getNodeData(String path) throws Exception {
+        return curator.getData().forPath(path);
+    }
+
+    public void setNodeData(String path, byte[] data) throws Exception {
+        curator.setData().forPath(path, data);
     }
 
     public static void main(String[] args) {
