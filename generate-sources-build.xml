@@ -1,0 +1,8 @@
+<project name="generate-sources">
+    <echo message="Running protoc ..."/>
+    <exec executable="${protoc}">
+        <arg value="--java_out=${protobuf.source.dir}"/>
+        <arg value="--proto_path=${protobuf.basedir}"/>
+        <arg value="${protobuf.basedir}/metadata.proto"/>
+    </exec>
+</project>

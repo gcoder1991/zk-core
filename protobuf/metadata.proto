@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package zookeeper.protobuf;
+
+option java_package = "com.gcoder.protobuf";
+option java_outer_classname = "metadataProto";
+option java_multiple_files = true;
+
+message GsInfo {
+    int64 startTime = 1;       // 启动时间
+    string operator = 2;       // 操作人
+    string pid = 3;            // 进程号
+    string hostAddress = 4;    // 主机地址
+    bool enable = 5;           // 是否可用
+    int32 numLimit = 6;        // 人数上限
+    int32 numOnline = 7;       // 在线人数
+}
+
+message RoleInfo {
+    string serverId = 1;        // 所在服务器ID
+    int64 loginTime = 2;        // 登陆时间
+    int32 state = 3;            // 当前状态
+}
+
+
