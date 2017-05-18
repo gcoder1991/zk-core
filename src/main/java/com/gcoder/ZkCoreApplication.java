@@ -6,8 +6,10 @@ import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @SpringBootApplication
 public class ZkCoreApplication {
@@ -17,29 +19,35 @@ public class ZkCoreApplication {
 	private final static String NAMESPACE = "namespace";
 
 	public static void main(String[] args) throws Exception {
-		ConfigurableApplicationContext ctx = SpringApplication.run(ZkCoreApplication.class, args);
-		CuratorFramework curator = ctx.getBean(CuratorFramework.class);
+
+		SpringApplication.run(ZkCoreApplication.class, args);
+
+        Map<String, String> systemInfo = new HashMap<>();
+
+		CuratorFramework curator = SpringUtils.getBean(CuratorFramework.class);
 		curator.start();
 		curator.usingNamespace(NAMESPACE);
 
-
-		CuratorService curatorService = ctx.getBean(CuratorService.class);
+		CuratorService curatorService = SpringUtils.getBean(CuratorService.class);
+		ServerConfig serverConfig = SpringUtils.getBean(ServerConfig.class);
 
 		GsInfo.Builder gsInfo = GsInfo.newBuilder()
 				.setEnable(false)
 				.setHostAddress(SystemUtils.getLocalHost())
-				.setNumLimit(100)
+				.setNumLimit(serverConfig.getNumLimit())
 				.setNumOnline(0)
 				.setOperator(SystemUtils.getSysUser())
 				.setPid(SystemUtils.getPid())
-				.setStartTime(System.currentTimeMillis());
+				.setStartTime(System.currentTimeMillis())
+                .setVersion(serverConfig.getVersion());
 
         String path = curatorService.registerServer("gameServer", gsInfo.build().toByteArray());
 
         byte[] nodeData = curatorService.getNodeData(path);
         System.out.println(GsInfo.parseFrom(nodeData).toString());
 
-        SystemUtils.createSysInfoFile(null);
+        systemInfo.put("zkPath", path);
+        SystemUtils.createSysInfoFile(systemInfo);
 
 		Thread.sleep(Integer.MAX_VALUE);
 	}

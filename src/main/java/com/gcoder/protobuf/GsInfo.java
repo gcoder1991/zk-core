@@ -22,6 +22,7 @@ public  final class GsInfo extends
     enable_ = false;
     numLimit_ = 0;
     numOnline_ = 0;
+    version_ = "";
   }
 
   @java.lang.Override
@@ -85,6 +86,12 @@ public  final class GsInfo extends
           case 56: {
 
             numOnline_ = input.readInt32();
+            break;
+          }
+          case 66: {
+            java.lang.String s = input.readStringRequireUtf8();
+
+            version_ = s;
             break;
           }
         }
@@ -288,6 +295,48 @@ public  final class GsInfo extends
     return numOnline_;
   }
 
+  public static final int VERSION_FIELD_NUMBER = 8;
+  private volatile java.lang.Object version_;
+  /**
+   * <pre>
+   * 服务器版本
+   * </pre>
+   *
+   * <code>string version = 8;</code>
+   */
+  public java.lang.String getVersion() {
+    java.lang.Object ref = version_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = 
+          (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      version_ = s;
+      return s;
+    }
+  }
+  /**
+   * <pre>
+   * 服务器版本
+   * </pre>
+   *
+   * <code>string version = 8;</code>
+   */
+  public com.google.protobuf.ByteString
+      getVersionBytes() {
+    java.lang.Object ref = version_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b = 
+          com.google.protobuf.ByteString.copyFromUtf8(
+              (java.lang.String) ref);
+      version_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
   public final boolean isInitialized() {
     byte isInitialized = memoizedIsInitialized;
@@ -321,6 +370,9 @@ public  final class GsInfo extends
     if (numOnline_ != 0) {
       output.writeInt32(7, numOnline_);
     }
+    if (!getVersionBytes().isEmpty()) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 8, version_);
+    }
   }
 
   public int getSerializedSize() {
@@ -353,6 +405,9 @@ public  final class GsInfo extends
       size += com.google.protobuf.CodedOutputStream
         .computeInt32Size(7, numOnline_);
     }
+    if (!getVersionBytes().isEmpty()) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(8, version_);
+    }
     memoizedSize = size;
     return size;
   }
@@ -383,6 +438,8 @@ public  final class GsInfo extends
         == other.getNumLimit());
     result = result && (getNumOnline()
         == other.getNumOnline());
+    result = result && getVersion()
+        .equals(other.getVersion());
     return result;
   }
 
@@ -409,6 +466,8 @@ public  final class GsInfo extends
     hash = (53 * hash) + getNumLimit();
     hash = (37 * hash) + NUMONLINE_FIELD_NUMBER;
     hash = (53 * hash) + getNumOnline();
+    hash = (37 * hash) + VERSION_FIELD_NUMBER;
+    hash = (53 * hash) + getVersion().hashCode();
     hash = (29 * hash) + unknownFields.hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -552,6 +611,8 @@ public  final class GsInfo extends
 
       numOnline_ = 0;
 
+      version_ = "";
+
       return this;
     }
 
@@ -581,6 +642,7 @@ public  final class GsInfo extends
       result.enable_ = enable_;
       result.numLimit_ = numLimit_;
       result.numOnline_ = numOnline_;
+      result.version_ = version_;
       onBuilt();
       return result;
     }
@@ -645,6 +707,10 @@ public  final class GsInfo extends
       }
       if (other.getNumOnline() != 0) {
         setNumOnline(other.getNumOnline());
+      }
+      if (!other.getVersion().isEmpty()) {
+        version_ = other.version_;
+        onChanged();
       }
       onChanged();
       return this;
@@ -1087,6 +1153,95 @@ public  final class GsInfo extends
     public Builder clearNumOnline() {
       
       numOnline_ = 0;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object version_ = "";
+    /**
+     * <pre>
+     * 服务器版本
+     * </pre>
+     *
+     * <code>string version = 8;</code>
+     */
+    public java.lang.String getVersion() {
+      java.lang.Object ref = version_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs =
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        version_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <pre>
+     * 服务器版本
+     * </pre>
+     *
+     * <code>string version = 8;</code>
+     */
+    public com.google.protobuf.ByteString
+        getVersionBytes() {
+      java.lang.Object ref = version_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        version_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <pre>
+     * 服务器版本
+     * </pre>
+     *
+     * <code>string version = 8;</code>
+     */
+    public Builder setVersion(
+        java.lang.String value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  
+      version_ = value;
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * 服务器版本
+     * </pre>
+     *
+     * <code>string version = 8;</code>
+     */
+    public Builder clearVersion() {
+      
+      version_ = getDefaultInstance().getVersion();
+      onChanged();
+      return this;
+    }
+    /**
+     * <pre>
+     * 服务器版本
+     * </pre>
+     *
+     * <code>string version = 8;</code>
+     */
+    public Builder setVersionBytes(
+        com.google.protobuf.ByteString value) {
+      if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+      
+      version_ = value;
       onChanged();
       return this;
     }

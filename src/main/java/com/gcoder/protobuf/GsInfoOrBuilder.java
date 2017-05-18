@@ -96,4 +96,22 @@ public interface GsInfoOrBuilder extends
    * <code>int32 numOnline = 7;</code>
    */
   int getNumOnline();
+
+  /**
+   * <pre>
+   * 服务器版本
+   * </pre>
+   *
+   * <code>string version = 8;</code>
+   */
+  java.lang.String getVersion();
+  /**
+   * <pre>
+   * 服务器版本
+   * </pre>
+   *
+   * <code>string version = 8;</code>
+   */
+  com.google.protobuf.ByteString
+      getVersionBytes();
 }

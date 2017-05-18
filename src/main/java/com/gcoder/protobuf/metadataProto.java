@@ -33,14 +33,14 @@ public final class metadataProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016metadata.proto\022\022zookeeper.protobuf\"\204\001\n" +
+      "\n\016metadata.proto\022\022zookeeper.protobuf\"\225\001\n" +
       "\006GsInfo\022\021\n\tstartTime\030\001 \001(\003\022\020\n\010operator\030\002" +
       " \001(\t\022\013\n\003pid\030\003 \001(\t\022\023\n\013hostAddress\030\004 \001(\t\022\016" +
       "\n\006enable\030\005 \001(\010\022\020\n\010numLimit\030\006 \001(\005\022\021\n\tnumO" +
-      "nline\030\007 \001(\005\">\n\010RoleInfo\022\020\n\010serverId\030\001 \001(" +
-      "\t\022\021\n\tloginTime\030\002 \001(\003\022\r\n\005state\030\003 \001(\005B&\n\023c" +
-      "om.gcoder.protobufB\rmetadataProtoP\001b\006pro" +
-      "to3"
+      "nline\030\007 \001(\005\022\017\n\007version\030\010 \001(\t\">\n\010RoleInfo" +
+      "\022\020\n\010serverId\030\001 \001(\t\022\021\n\tloginTime\030\002 \001(\003\022\r\n" +
+      "\005state\030\003 \001(\005B&\n\023com.gcoder.protobufB\rmet" +
+      "adataProtoP\001b\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -59,7 +59,7 @@ public final class metadataProto {
     internal_static_zookeeper_protobuf_GsInfo_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_zookeeper_protobuf_GsInfo_descriptor,
-        new java.lang.String[] { "StartTime", "Operator", "Pid", "HostAddress", "Enable", "NumLimit", "NumOnline", });
+        new java.lang.String[] { "StartTime", "Operator", "Pid", "HostAddress", "Enable", "NumLimit", "NumOnline", "Version", });
     internal_static_zookeeper_protobuf_RoleInfo_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_zookeeper_protobuf_RoleInfo_fieldAccessorTable = new
